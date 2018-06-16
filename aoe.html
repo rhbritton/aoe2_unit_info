@@ -1,5 +1,7 @@
 <html>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 
 	body {
@@ -38,7 +40,8 @@
 	
 	.select_container {
 		display: block;
-		width: 60%;
+		width: 100%;
+		max-width: 40em;
 		margin: auto;
 		position: relative;
 	}
@@ -53,8 +56,21 @@
 		font-size: 2em;
 		padding: 0.25em;
 		border-radius: 0.25em;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
 		border: 1px solid #666;
 		z-index: 2;
+		padding-right: 2em;
+	}
+
+	.highlight {
+		position: absolute;
+		right: 0;
+		top: 1.5em;
+		height: 2em;
+		width: 2em;
+		padding: 1em;
+		cursor: pointer;
 	}
 
 	#results[data-active="false"] {
@@ -62,19 +78,20 @@
 	}
 
 	#results {
-		width: 60%;
+		position: absolute;
+		width: 97%;
+		max-height: 10em;
 		font-size: 2em;
 		margin: auto;
-		position: fixed;
-		top: 2.75em;
+		top: 2.5em;
 		border-bottom-left-radius: 0.25em;
 		border-bottom-right-radius: 0.25em;
 		border: 1px solid #666;
 		padding: 0.25em;
 		z-index: 1;
 		background-color: white;
-		max-height: 60%;
 		overflow-y: auto;
+		z-index: 1;
 	}
 
 	.option {
@@ -92,7 +109,8 @@
 	}
 
 	.info_container {
-		width: 60%;
+		width: 100%;
+		max-width: 40em;
 		margin: auto;
 	}
 
@@ -118,6 +136,7 @@
 	<div class="select_container">
 		<label>Enemy Unit</label>
 		<input id="unitToKill" type="text" />
+		<img class="highlight" src="highlight.png" />
 		<div data-active="false" id="results"></div>
 	</div>
 
@@ -215,8 +234,10 @@
 	// 	}
 	// ]
 
-	$('#unitToKill').click(function() {
-		$(this).select()
+	$('#unitToKill').select();
+
+	$('.highlight').click(function() {
+		$('#unitToKill').select()
 	})
 
 	$('#unitToKill').blur(function() {
@@ -241,7 +262,7 @@
 
 		var returnUnits = [];
 		units.forEach(function(unit) {
-			if (regex.test(unit.name)) {
+			if (unit.active && regex.test(unit.name)) {
 				returnUnits.push(unit)
 			}
 		})
@@ -256,6 +277,9 @@
 		});
 
 		returnUnits.forEach(function(unit) {
+			if (!unit.name)
+				console.log(unit)
+
 			var optionClick = "function() {";
 			
 			if (unit.weakAgainstText)

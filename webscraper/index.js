@@ -36,16 +36,13 @@ var download = function(uri, filename, callback){
 
 request('http://ageofempires.wikia.com/wiki/Unique_unit_(Age_of_Empires_II)', function (error, response, body) {
 	var $ = cheerio.load(body)
-	$('img[width="22"][height="22"]').each(function() {
+	$('img[width="22"][height="22"], img[width="22"][height="21"], img[width="21"][height="22"]').each(function() {
 		var $img = $(this)
 		var $link = $img.parent().next()
 
 		var length = unitsData.length;
 		unitsData.push({ id: length+1, href: $link.attr('href') });
 		unitByHref[$link.attr('href')] = length+1;
-
-		// console.log($img.attr('data-src'))
-		// console.log($link.attr('href'))
 
 		if ($link.attr('href')) {
 			if ($img.attr('data-src')) {
@@ -75,9 +72,6 @@ request('http://ageofempires.wikia.com/wiki/Units_(Age_of_Empires_II)', function
 		unitsData.push({ id: unitsData.length+1, href: $link.attr('href') });
 		var length = unitsData.length
 		unitByHref[$link.attr('href')] = length;
-
-		// console.log($img.attr('data-src'))
-		// console.log($link.attr('href'))
 
 		if ($link.attr('href')) {
 			if ($img.attr('data-src')) {
