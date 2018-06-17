@@ -1,133 +1,7 @@
 <html>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-
-	body {
-		background-color: #fff5ea;
-	}
-
-	.cover {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		left: 0;
-		top: 0;
-		background: url('./cover.jpg');
-		background-position: 50% 50%;
-		no-repeat center center center;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-		opacity: 0.05;
-	}
-
-	.image {
-		float: right;
-	    height: 3em;
-	    width: 3em;
-	    margin-left: 1em;
-	    margin-bottom: 1em;
-	}
-
-	.image img {
-		width: 100%;
-   		height: 100%;
-	    border: 0.25em solid white;
-	}
-	
-	.select_container {
-		display: block;
-		width: 100%;
-		max-width: 40em;
-		margin: auto;
-		position: relative;
-	}
-	label {
-		display: block;
-		width: 100%;
-		font-size: 1.5em;
-	}
-	input {
-		display: block;
-		width: 100%;
-		font-size: 2em;
-		padding: 0.25em;
-		border-radius: 0.25em;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
-		border: 1px solid #666;
-		z-index: 2;
-		padding-right: 2em;
-	}
-
-	.highlight {
-		position: absolute;
-		right: 0;
-		top: 1.5em;
-		height: 2em;
-		width: 2em;
-		padding: 1em;
-		cursor: pointer;
-	}
-
-	#results[data-active="false"] {
-		display: none;
-	}
-
-	#results {
-		position: absolute;
-		width: 97%;
-		max-height: 10em;
-		font-size: 2em;
-		margin: auto;
-		top: 2.5em;
-		border-bottom-left-radius: 0.25em;
-		border-bottom-right-radius: 0.25em;
-		border: 1px solid #666;
-		padding: 0.25em;
-		z-index: 1;
-		background-color: white;
-		overflow-y: auto;
-		z-index: 1;
-	}
-
-	.option {
-		padding: 0.25em;
-		cursor: pointer;
-	}
-
-	.option:hover {
-		background-color: #3875d7;
-		color: white;
-	}
-
-	.info_container[data-active="false"] {
-		display: none;
-	}
-
-	.info_container {
-		width: 100%;
-		max-width: 40em;
-		margin: auto;
-	}
-
-	.info_subcontainer {
-		margin-top: 1em;
-	}
-
-	.info_subcontainer label {
-		display: block;
-		font-size: 1.5em;
-	}
-
-	.sub_info {
-		font-size: 1em;
-	}
-
-</style>
+<link rel="stylesheet" href="./styles/core.css">
 
 <body>
 	<div class="cover">
@@ -136,12 +10,31 @@
 	<div class="select_container">
 		<label>Enemy Unit</label>
 		<input id="unitToKill" type="text" />
-		<img class="highlight" src="highlight.png" />
+		<img class="highlight" src="./images/highlight.png" />
 		<div data-active="false" id="results"></div>
 	</div>
 
 	<div data-active="false" class="info_container">
 		<div class="image"></div>
+		<div class="cost">
+			<div class="wood resource">
+				<img src="./images/wood.jpg" />
+				<div class="amount"></div>
+			</div>
+			<div class="food resource">
+				<img src="./images/food.jpg" />
+				<div class="amount"></div>
+			</div>
+			<div class="gold resource">
+				<img src="./images/gold.jpg" />
+				<div class="amount"></div>
+			</div>
+			<div class="stone resource">
+				<img src="./images/stone.jpg" />
+				<div class="amount"></div>
+			</div>
+		</div>
+
 		<div class="info_subcontainer">
 			<label>Weak Against</label>
 			<div class="sub_info info_counter"></div>
@@ -159,185 +52,7 @@
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="./units.js"></script>
-<script>
-
-	$('#unitToKill').focus()
-
-	var upgrades = [
-
-	]
-
-	// var units = [
-	// 	{
-	// 		id: 1,
-	// 		counters: [],
-	// 		weakAgainstText: 'Test',
-	// 		preevolution: [],
-	// 		name: 'Spearmen',
-	// 		evolution: [2,3],
-	// 		upgrades: []
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		counters: [],
-	// 		weakAgainstText: 'Test1',
-	// 		preevolution: [1],
-	// 		evolution: [3],
-	// 		name: 'Pikemen',
-	// 		upgrades: []
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		counters: [],
-	// 		weakAgainstText: 'Test2',
-	// 		preevolution: [1,2],
-	// 		evolution: [],
-	// 		name: 'Halberdier',
-	// 		upgrades: []
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		counters: [],
-	// 		weakAgainstText: 'Test3',
-	// 		preevolution: [],
-	// 		evolution: [5],
-	// 		name: 'Militia',
-	// 		upgrades: []
-	// 	},
-	// 	{
-	// 		id: 5,
-	// 		counters: [6],
-	// 		weakAgainstText: 'Test4',
-	// 		preevolution: [4],
-	// 		evolution: [],
-	// 		name: 'Man-at-Arms',
-	// 		upgrades: []
-	// 	},
-	// 	{
-	// 		id: 6,
-	// 		counters: [7],
-	// 		weakAgainstText: 'Test5',
-	// 		preevolution: [],
-	// 		evolution: [],
-	// 		name: 'Archer',
-	// 		upgrades: []
-	// 	},
-	// 	{
-	// 		id: 7,
-	// 		counters: [],
-	// 		weakAgainstText: 'Test6',
-	// 		preevolution: [],
-	// 		evolution: [],
-	// 		name: 'Skirmisher',
-	// 		upgrades: []
-	// 	}
-	// ]
-
-	$('#unitToKill').select();
-
-	$('.highlight').click(function() {
-		$('#unitToKill').select()
-	})
-
-	$('#unitToKill').blur(function() {
-		setTimeout(function() {
-			$(this).val('')
-		}, 100)
-	})
-
-	$('#unitToKill').keyup(function(e) {
-		if (e.keyCode === 13)
-			return $('#results .option:first-child').trigger('click');
-
-		$('.info_container').attr('data-active', false);
-
-		$('#results').empty();
-		$('#results').attr('data-active', false);
-
-		if (!$(this).val())
-			return;
-
-		var regex = new RegExp($(this).val(), 'i');
-
-		var returnUnits = [];
-		units.forEach(function(unit) {
-			if (unit.active && regex.test(unit.name)) {
-				returnUnits.push(unit)
-			}
-		})
-
-		returnUnits.sort(function(a, b) {
-			if (a.name < b.name)
-				return -1;
-			else if (a.name > b.name)
-				return 1;
-			else
-				return 0;
-		});
-
-		returnUnits.forEach(function(unit) {
-			if (!unit.name)
-				console.log(unit)
-
-			var optionClick = "function() {";
-			
-			if (unit.weakAgainstText)
-				optionClick += "$('.info_counter').text('"+unit.weakAgainstText+"');"
-			else
-				optionClick += "$('.info_counter').text('');"
-			
-			if (unit.strongAgainstText)
-				optionClick += "$('.info_strongagainst').text('"+unit.strongAgainstText+"');"
-			else
-				optionClick += "$('.info_strongagainst').text('');"
-			
-			if (unit.strongAgainstText)
-				optionClick += "$('.info_strongagainst').text('"+unit.strongAgainstText+"');"
-			else
-				optionClick += "$('.info_strongagainst').text('');"
-			
-			if (unit.image) {
-				optionClick += "$('.image').empty();"
-				optionClick += "$('.image').append(\`<img src=\'"+unit.image+"\'/>\`);"
-			} else
-				optionClick += "$('.image').empty();"
-
-			var evolution = '';
-			if (unit.preevolution && unit.preevolution.length) {
-				unit.preevolution.forEach(function(ev, i) {
-					var divider = '';
-					if (i != 0) divider = ' -> ';
-
-					evolution += divider + units[(unit.preevolution[i]-1)].name;
-				})
-			}
-
-			if (evolution) evolution += ' -> ';
-
-			evolution += '<b>'+unit.name+'</b>';
-
-			if (unit.evolution && unit.evolution.length) {
-				unit.evolution.forEach(function(ev, i) {
-					evolution += ' -> ' + units[(unit.evolution[i]-1)].name;
-				})
-			}
-
-			optionClick += "$('.info_evolution').html('"+evolution+"');"
-
-			optionClick += "$('input').val('"+unit.name+"');"
-			optionClick += "$('#results').attr('data-active', false);"
-			optionClick += "$('.info_container').attr('data-active', true);"
-			optionClick += "$('input').attr('data-value', '"+unit.name+"');"
-			optionClick += "}"
-
-			$('#results').append('<div data-id="'+unit.id+'" class="option" onclick="('+optionClick+')()">'+unit.name+'</option>')
-		})
-
-		$('#results').attr('data-active', true);
-	})
-
-
-</script>
+<script src="./scripts/units.js"></script>
+<script src="./scripts/core.js"></script>
 
 </html>

@@ -1,0 +1,153 @@
+body {
+	background-color: #fff5ea;
+}
+
+.cover {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: url('../images/cover.jpg');
+	background-position: 50% 50%;
+	no-repeat center center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	opacity: 0.05;
+}
+
+.cost {
+	position: relative;
+	float: right;
+    width: 3em;
+    margin-left: 2em;
+    margin-bottom: 1em;
+    clear: right;
+    font-size: 1em;
+    text-align: left;
+}
+
+.cost .resource {
+	margin-left: 5px;
+}
+
+.cost .resource[data-active="false"] {
+	display: none;
+}
+
+.cost img {
+	vertical-align: middle;
+	height: 12px;
+}
+
+.cost .amount {
+	vertical-align: middle;
+	display: inline;
+	font-size: 0.75em;
+	margin-left: 5px;
+}
+
+.image {
+	float: right;
+    height: 3em;
+    width: 3em;
+    margin-left: 1em;
+    margin-bottom: 0.5em;
+}
+
+.image img {
+	width: 100%;
+	height: 100%;
+    border: 0.25em solid white;
+}
+
+.select_container {
+	display: block;
+	width: 100%;
+	max-width: 40em;
+	margin: auto;
+	position: relative;
+}
+label {
+	display: block;
+	width: 100%;
+	font-size: 1.5em;
+}
+input {
+	display: block;
+	width: 100%;
+	font-size: 2em;
+	padding: 0.25em;
+	border-radius: 0.25em;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border: 1px solid #666;
+	z-index: 2;
+	padding-right: 2em;
+}
+
+.highlight {
+	position: absolute;
+	right: 0;
+	top: 1.5em;
+	height: 2em;
+	width: 2em;
+	padding: 1em;
+	cursor: pointer;
+}
+
+#results[data-active="false"] {
+	display: none;
+}
+
+#results {
+	position: absolute;
+	width: 97%;
+	max-height: 10em;
+	font-size: 2em;
+	margin: auto;
+	top: 2.5em;
+	border-bottom-left-radius: 0.25em;
+	border-bottom-right-radius: 0.25em;
+	border: 1px solid #666;
+	padding: 0.25em;
+	z-index: 1;
+	background-color: white;
+	overflow-y: auto;
+	z-index: 1;
+}
+
+.option {
+	padding: 0.25em;
+	cursor: pointer;
+}
+
+.option:hover {
+	background-color: #3875d7;
+	color: white;
+}
+
+.info_container[data-active="false"] {
+	display: none;
+}
+
+.info_container {
+	width: 100%;
+	max-width: 40em;
+	margin: auto;
+}
+
+.info_subcontainer {
+	margin-top: 1em;
+}
+
+.info_subcontainer label {
+	display: block;
+	font-size: 1.5em;
+}
+
+.sub_info {
+	font-size: 1em;
+}
